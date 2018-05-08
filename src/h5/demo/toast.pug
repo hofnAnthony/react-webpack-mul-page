@@ -1,0 +1,14 @@
+extends ../../common/html/base.pug
+
+block title
+  title 客户端吐司测试用例
+
+block css
+  link(rel='stylesheet', href='{{{h5/demo/index.css}}}')
+
+block js
+  script(src='{{{common/js/lib/wx_sdk.js}}}')
+  script(src='{{{h5/demo/page/toast.js}}}')
+
+block main
+  div(id='container')

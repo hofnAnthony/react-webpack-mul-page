@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "es2015",
+    "react",
+    "stage-2"
+  ],
+  "plugins": [
+    [
+      "import",
+      {
+        "style": "css",
+        "libraryName": "antd-mobile"
+      }
+    ]
+  ],
+  "ignore": [
+    "node_modules",
+    "src/common/dist",
+    "src/common/lib"
+  ]
+}

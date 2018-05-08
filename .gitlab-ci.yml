@@ -1,0 +1,48 @@
+image: "docker.lcgc.work/node:v8.9.3"
+variables:
+  TZ: Asia/Shanghai
+  SOLAR_ASSETS_QINIU_URL: "\"https://guihua-assets.licaigc.com/\""
+  XDG_CACHE_HOME: "/cache"
+  NPM_CONFIG_CACHE: "/cache"
+
+stages:
+  - release
+  - dev
+
+release:
+  stage: release
+  script:
+    - yarn install --prefer-offline --pure-lockfile --cache-folder local-yarn-cache --skip-integrity-check --link-folder local-yarn-link
+    - yarn run clean
+    - yarn run release
+  only:
+      - master@guihua/solar-fe
+  artifacts:
+    name: "${CI_BUILD_STAGE}_${CI_BUILD_ID}"
+    paths:
+     - static/
+    expire_in: 7d
+  cache:
+    paths:
+      - node_modules/
+      - local-yarn-cache/
+      - local-yarn-link/
+
+dev:
+  stage: dev
+  script:
+    - yarn install --prefer-offline --pure-lockfile --cache-folder local-yarn-cache --skip-integrity-check --link-folder local-yarn-link
+    - yarn run clean
+    - yarn run release
+  only:
+      - /^dev.*$/@guihua/solar-fe
+  artifacts:
+    name: "dev_${CI_BUILD_STAGE}_${CI_BUILD_ID}"
+    paths:
+     - static/
+    expire_in: 1d
+  cache:
+    paths:
+      - node_modules/
+      - local-yarn-cache/
+      - local-yarn-link/

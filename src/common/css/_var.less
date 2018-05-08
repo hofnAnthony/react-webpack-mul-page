@@ -1,0 +1,6 @@
+/*
+如果你希望在media query中使用Less变量，你可以直接使用普通的变量方式。因为“~”后面的值是不被编译的，所以可以用作media query的参数。
+https://www.cnblogs.com/waibo/p/7899799.html
+*/
+@mobile :~'screen and (max-width: 767px)';
+@desktop :~'screen and (min-width: 768px)';

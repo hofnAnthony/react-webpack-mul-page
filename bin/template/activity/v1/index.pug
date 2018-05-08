@@ -1,0 +1,11 @@
+extends ../../common/html/base.pug
+
+block title
+  title <%= name %>
+
+block js
+  script(src='{{{common/js/lib/wx_sdk.js}}}')
+  script(src='{{{h5/<%= name %>/page/home/index.js}}}')
+
+block main
+  div(id='container')
