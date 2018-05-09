@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import BROWSER, { isGuiHua, guihuaVersion, isWeiXin } from 'lcgc_utils/ua'
-import { setShare, openShare } from 'lcgc_share'
+import { setShare, openShare, openSharePic } from 'lcgc_share'
 import { Toast } from 'antd-mobile'
 
 // 案例1：判断浏览器UserAgent信息
@@ -21,7 +21,7 @@ window.cancleForApp = () => {
 let shareInfo = {
   title: '右上角分享默认分享的标题',
   desc: '右上角分享的描述',
-  url: window.location.href,
+  link: window.location.href,
   imgUrl: 'https://guihua-static.licaigc.com/dazhaxie.png',
   successFunc: 'successForApp',
   cancelFunc: 'cancleForApp'
@@ -162,6 +162,14 @@ class BasicDemo extends Component {
           }}
         >
           微信,朋友圈,QQ,微博
+        </div>
+        <div
+          className="u-btn"
+          onClick={() => {
+            openSharePic(shareInfo)
+          }}
+        >
+          分享图片
         </div>
       </div>
     )
