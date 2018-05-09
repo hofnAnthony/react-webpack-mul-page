@@ -17,8 +17,10 @@ export const dateFormat = (date, format) => {
   }
   for (var k in dateProp) {
     if (new RegExp('(' + k + ')').test(format)) {
-      format = format.replace(RegExp.$1, RegExp.$1.length === 1
-        ? dateProp[k] : ('00' + dateProp[k]).substr(('' + dateProp[k]).length))
+      format = format.replace(
+        RegExp.$1,
+        RegExp.$1.length === 1 ? dateProp[k] : ('00' + dateProp[k]).substr(('' + dateProp[k]).length)
+      )
     }
   }
   return format

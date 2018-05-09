@@ -57,14 +57,17 @@ export const hide = () => {
  * cancle: 取消按钮文案
  * tag： 调用回调的标识  eg:tag=1 => onCancle1, onConfirm1
  */
-export const dialog = (options) => {
+export const dialog = options => {
   const { onCancel, onConfirm, ...info } = options
   info.tag = info.tag || 1
-  window['onCancel' + info.tag] = onCancel || function () { }
-  window['onConfirm' + info.tag] = onConfirm || function () { }
+  window['onCancel' + info.tag] = onCancel || function() {}
+  window['onConfirm' + info.tag] = onConfirm || function() {}
   window.location.href = `${URLS.DIALOG}?${urlParam(info)}`
 }
 
 export default {
-  toast, loading, hide, dialog
+  toast,
+  loading,
+  hide,
+  dialog
 }

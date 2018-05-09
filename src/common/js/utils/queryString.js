@@ -8,9 +8,4 @@ function queryString(name) {
   return ''
 }
 
-// 获取地址上的所有参数
-export function urlParam() {
-  return window.location.search.substr(1)
-}
-
 export default queryString

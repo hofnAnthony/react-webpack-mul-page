@@ -1,7 +1,7 @@
 import queryString from './utils/queryString'
-import './utils/baidu_statistic.js'
-import './utils/add_event_statistic.js'
-import './raven.js'
+import './mods/baidu_statistic.js'
+import './mods/add_event_statistic.js'
+import './mods/raven.js'
 
 function setCookie(name, value) {
   let Days = 365

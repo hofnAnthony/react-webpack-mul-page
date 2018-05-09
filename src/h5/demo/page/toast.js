@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tip } from 'common/js/global/index.js'
+import { WebViewTip } from 'common/js/webview'
 
 class ToastDemo extends Component {
   render() {
@@ -8,7 +8,7 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.toast('你真棒，真棒')
+            WebViewTip.toast('你真棒，真棒')
           }}
         >
           默认时间后toast消失
@@ -16,7 +16,7 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.toast('对，说的就是你', 5)
+            WebViewTip.toast('对，说的就是你', 5)
           }}
         >
           5s后toast消失
@@ -26,9 +26,9 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.loading()
+            WebViewTip.loading()
             setTimeout(() => {
-              Tip.hide()
+              WebViewTip.hide()
             }, 3000)
           }}
         >
@@ -37,9 +37,9 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.loading('搬砖中...')
+            WebViewTip.loading('搬砖中...')
             setTimeout(() => {
-              Tip.hide()
+              WebViewTip.hide()
             }, 3000)
           }}
         >
@@ -50,14 +50,14 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.dialog({
+            WebViewTip.dialog({
               title: '我是标题',
               content: '我是内容',
               onConfirm: () => {
-                Tip.toast('我是确定，你点击了我')
+                WebViewTip.toast('我是确定，你点击了我')
               },
               onCancel: () => {
-                Tip.toast('取消取消取消')
+                WebViewTip.toast('取消取消取消')
               }
             })
           }}
@@ -68,15 +68,15 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.dialog({
+            WebViewTip.dialog({
               title: '我是标题',
               content: '我是内容',
               confirm: '去存钱',
               onConfirm: () => {
-                Tip.toast('我是确定，你点击了我')
+                WebViewTip.toast('我是确定，你点击了我')
               },
               onCancel: () => {
-                Tip.toast('取消取消取消')
+                WebViewTip.toast('取消取消取消')
               }
             })
           }}
@@ -87,15 +87,15 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.dialog({
+            WebViewTip.dialog({
               title: '我是标题',
               content: '我是内容',
               cancel: '再看一哈',
               onConfirm: () => {
-                Tip.toast('我是确定，你点击了我')
+                WebViewTip.toast('我是确定，你点击了我')
               },
               onCancel: () => {
-                Tip.toast('取消取消取消')
+                WebViewTip.toast('取消取消取消')
               }
             })
           }}
@@ -106,16 +106,16 @@ class ToastDemo extends Component {
         <div
           className="u-btn"
           onClick={() => {
-            Tip.dialog({
+            WebViewTip.dialog({
               title: '我是标题',
               content: '我是内容',
               cancel: '再看一哈',
               confirm: '去存钱',
               onConfirm: () => {
-                Tip.toast('我是确定，你点击了我')
+                WebViewTip.toast('我是确定，你点击了我')
               },
               onCancel: () => {
-                Tip.toast('取消取消取消')
+                WebViewTip.toast('取消取消取消')
               }
             })
           }}

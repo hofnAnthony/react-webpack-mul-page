@@ -1,7 +1,28 @@
 import queryString from './queryString.js'
-import localCache from './local_cache.js'
-import uuid from './uuid.js'
-import { formatNum } from './numformat.js'
+import * as UA from './ua.js'
+
+const uuid = (len, radix) => {
+  let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
+  let uuid = []
+  let i
+  radix = radix || chars.length
+
+  if (len) {
+    for (i = 0; i < len; i++) uuid[i] = chars[0 | (Math.random() * radix)]
+  } else {
+    let r
+    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-'
+    uuid[14] = '4'
+
+    for (i = 0; i < 36; i++) {
+      if (!uuid[i]) {
+        r = 0 | (Math.random() * 16)
+        uuid[i] = chars[i === 19 ? (r & 0x3) | 0x8 : r]
+      }
+    }
+  }
+  return uuid.join('')
+}
 
 // 是否为本地开发
 const isDev = () => {
@@ -11,33 +32,12 @@ const isDev = () => {
   return false
 }
 
-const addParam2Url = (url, key, val) => {
-  if (url.indexOf('?') === -1) {
-    url += `?${key}=${val}`
-  } else {
-    url += `&${key}=${val}`
-  }
-  return url
-}
-
-/**
- * 如果当前页面有渠道信息，则自动传入到传入的 url 地址
- * @param {string} url
- */
-const addCh2Url = (url) => {
-  let ch = queryString('ch')
-  if (ch) {
-    url = addParam2Url(url, 'ch', ch)
-  }
-  return url
-}
-
 /**
  * 把对象变成字符串
  * eg: {name:'11',age:18}  => 'name=11&age=18'
  * @param {object} data
  */
-const urlParam = (data) => {
+const urlParam = data => {
   let paramStr = ''
   for (const key in data) {
     if (data.hasOwnProperty(key)) {
@@ -47,12 +47,20 @@ const urlParam = (data) => {
   return paramStr.substr(0, paramStr.length - 1)
 }
 
-export {
-  queryString,
-  localCache,
-  uuid,
-  formatNum,
-  isDev,
-  addCh2Url,
-  urlParam
+/**
+ * 把数字转换成带千位浮的字符串
+ * @param  {number} number 需要转换的数字
+ * formatNum(1000)  // 1,000
+ * formatNum(1000,'-') // 1-000
+ */
+const formatNum = (number, thousand) => {
+  number = number || 0
+  thousand = thousand || ','
+  let i, j
+  let negative = number < 0 ? '-' : ''
+  i = parseInt((number = Math.abs(+number || 0)), 10) + ''
+  j = (j = i.length) > 3 ? j % 3 : 0
+  return negative + (j ? i.substr(0, j) + thousand : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousand)
 }
+
+export { queryString, uuid, formatNum, isDev, urlParam, UA }
