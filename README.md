@@ -7,12 +7,10 @@
 
 # 一、文档
 
-- [快速上手](https://git.lcgc.work/guihua/solar-fe/wikis/get-start)
-- [开发规范](https://git.lcgc.work/guihua/solar-fe/wikis/development-guidelines)
-- [项目公共方法](https://git.lcgc.work/guihua/solar-fe/wikis/project-common-fn)
-- [客户端支持方法](https://git.lcgc.work/guihua/solar-fe/wikis/webview-common-fn)
-- [纯静态站点部署](https://git.lcgc.work/guihua/solar-fe/wikis/how-to-deploy-static)
-- [nodejs部署](https://git.lcgc.work/guihua/solar-fe/wikis/how-to-deploy-nodejs)
+- [快速上手](https://git.lcgc.work/fe/scaffold-fe/wikis/get-start)
+- [开发规范](https://git.lcgc.work/fe/scaffold-fe/wikis/development-guidelines)
+- [纯静态站点部署](https://git.lcgc.work/fe/scaffold-fe/wikis/how-to-deploy-static)
+- [nodejs部署](https://git.lcgc.work/fe/scaffold-fe/wikis/how-to-deploy-nodejs)
 - [前端打点协议](https://git.lcgc.work/guihua/solar-fe/wikis/https://git.lcgc.work/dw/pandora/blob/master/doc/protocol/pb_fe.md)
 
 
