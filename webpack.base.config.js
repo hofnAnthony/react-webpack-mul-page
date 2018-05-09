@@ -6,7 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 // 获取入口文件
 function getEntries(config) {
   var fileList = glob.sync(config.pattern)
-  return fileList.reduce(function (previous, current) {
+  return fileList.reduce(function(previous, current) {
     var filePath = path.parse(path.relative(config.src, current))
     var withoutSuffix = path.join(filePath.dir, filePath.name)
     previous[withoutSuffix] = path.resolve(__dirname, current)
@@ -28,17 +28,17 @@ var ENTRY_CONFIG = {
 }
 
 // 别名配置
-var ALIAS_CONFIG = ['account', 'components', 'global', 'lib', 'log', 'utils']
+var ALIAS_CONFIG = ['share', 'components', 'const', 'webview', 'lib', 'log', 'utils']
 
 function getAlias() {
-  return ALIAS_CONFIG.reduce(function (previous, current) {
+  return ALIAS_CONFIG.reduce(function(previous, current) {
     var aliasName = `lcgc_${current}`
     previous[aliasName] = path.resolve(__dirname, `src/common/js/${current}/`)
     return previous
   }, {})
 }
 
-module.exports = function () {
+module.exports = function() {
   let config = [
     {
       devtool: 'cheap-module-eval-source-map',
@@ -61,9 +61,7 @@ module.exports = function () {
       resolve: {
         extensions: ['.less']
       },
-      plugins: [
-        new ExtractTextPlugin('[name].css')
-      ]
+      plugins: [new ExtractTextPlugin('[name].css')]
     },
     {
       context: path.resolve(__dirname),
@@ -103,7 +101,7 @@ module.exports = function () {
           },
           {
             test: /\.less$/,
-            use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
+            use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
           },
           {
             test: /\.json$/,
@@ -113,10 +111,7 @@ module.exports = function () {
       },
       resolve: {
         alias: getAlias(),
-        modules: [
-          ENTRY_CONFIG.js.src,
-          'node_modules'
-        ],
+        modules: [ENTRY_CONFIG.js.src, 'node_modules'],
         extensions: ['.web.js', '.js', '.json', '.less']
       },
       plugins: [],

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import BROWSER, { isGuiHua, guihuaVersion, isWeiXin } from 'common/js/utils/ua'
-import { setShare, openShare } from 'common/js/share'
+import BROWSER, { isGuiHua, guihuaVersion, isWeiXin } from 'lcgc_utils/ua'
+import { setShare, openShare } from 'lcgc_share'
 import { Toast } from 'antd-mobile'
 
 // 案例1：判断浏览器UserAgent信息

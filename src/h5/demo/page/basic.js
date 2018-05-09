@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
-import BROWSER, { isGuiHua, guihuaVersion, isWeiXin } from 'common/js/utils/ua'
-import { setShare, openShare } from 'common/js/share'
+import { isGuiHua, guihuaVersion, isWeiXin, isWebView, isTalicai, isTimi, isJijindou } from 'lcgc_utils/ua'
+import { setShare, openShare } from 'lcgc_share'
 import { event, page, error } from 'lcgc_log'
+
+// 日志统计功能
+window._hmt = []
 event('demo', 'test', '测试')
 page({ name: 'zhongxia', loadTime: '100ms' })
 page('自定义页面信息日志记录')
 error('接口请求报错')
 
 // 案例1：判断浏览器UserAgent信息
-console.log(BROWSER)
 console.log('guihua:', isGuiHua())
-console.log('guihuaVersion:', guihuaVersion())
 console.log('isWeixin:', isWeiXin())
+console.log('isWebView:', isWebView())
+console.log('isTalicai:', isTalicai())
+console.log('isTimi:', isTimi())
+console.log('isJijindou:', isJijindou())
 
-window._hmt = []
 window.successForApp = () => {
   alert('APP分享成功')
 }

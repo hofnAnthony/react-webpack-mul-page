@@ -56,7 +56,7 @@ export const isTimi = () => {
   return UA.timi
 }
 
-export const isJiJinDou = () => {
+export const isJijindou = () => {
   return UA.jijindou
 }
 
@@ -90,7 +90,7 @@ export const isJijindouWeb = () => {
 
 // 如果不是好规划，她理财，Timi，基金豆 则认为不在 APP内
 export const isWebView = () => {
-  return isGuiHua() || isTalicai() || isTimi() || isJiJinDou()
+  return isGuiHua() || isTalicai() || isTimi() || isJijindou()
 }
 
 export const isWeiXin = () => {

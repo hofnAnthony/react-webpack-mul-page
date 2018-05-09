@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { WebViewTip } from 'common/js/webview'
+import { WebViewTip } from 'lcgc_webview'
 
 class ToastDemo extends Component {
   render() {

@@ -6,7 +6,7 @@
  * 3. setShareInfo    点击右上角分享按钮
  */
 
-import { isGuiHua, isTalicai, isTimi, isJiJinDou } from '../../utils/ua.js'
+import { isGuiHua, isTalicai, isTimi, isJijindou } from '../../utils/ua.js'
 import GuihuaShare from './guihua'
 import TalicaiShare from './talicai'
 import JijindouShare from './jijindou'
@@ -24,7 +24,7 @@ export default (() => {
   if (isTimi()) {
     return TimiShare
   }
-  if (isJiJinDou()) {
+  if (isJijindou()) {
     return JijindouShare
   }
 })()

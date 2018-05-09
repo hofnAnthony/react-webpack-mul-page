@@ -1,5 +1,5 @@
 import { isDev, UA } from '../utils'
-const { isGuiHua, isTalicai, isTimi, isJiJinDou } = UA
+const { isGuiHua, isTalicai, isTimi, isJijindou } = UA
 
 const API_URL_GUIHUA = {
   // 获取微信的token
@@ -60,7 +60,7 @@ export default (() => {
   if (isTimi()) {
     return addTestUrl(API_URL_TIMI)
   }
-  if (isJiJinDou()) {
+  if (isJijindou()) {
     return addTestUrl(API_URL_JIJINDOU)
   }
   return addTestUrl(API_URL_GUIHUA)

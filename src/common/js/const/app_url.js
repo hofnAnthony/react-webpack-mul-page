@@ -1,4 +1,4 @@
-import { isGuiHua, isTalicai, isTimi, isJiJinDou } from '../utils/ua'
+import { isGuiHua, isTalicai, isTimi, isJijindou } from '../utils/ua'
 
 const APP_URL_GUIHUA = {
   SHARE: 'guihua://open/share',
@@ -30,7 +30,7 @@ export default (() => {
   if (isTimi()) {
     return APP_URL_TIMI
   }
-  if (isJiJinDou()) {
+  if (isJijindou()) {
     return APP_URL_JIJINDOU
   }
 })()
