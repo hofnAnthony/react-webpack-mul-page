@@ -7,11 +7,11 @@
 
 # 一、文档
 
-- [快速上手](https://git.lcgc.work/fe/scaffold-fe/wikis/get-start)
-- [开发规范](https://git.lcgc.work/fe/scaffold-fe/wikis/development-guidelines)
-- [纯静态站点部署](https://git.lcgc.work/fe/scaffold-fe/wikis/how-to-deploy-static)
-- [nodejs部署](https://git.lcgc.work/fe/scaffold-fe/wikis/how-to-deploy-nodejs)
-- [前端打点协议](https://git.lcgc.work/guihua/solar-fe/wikis/https://git.lcgc.work/dw/pandora/blob/master/doc/protocol/pb_fe.md)
+- [快速上手](/doc/GET_START.md)
+- [开发规范](/doc/GUIDELINES.md)
+- [纯静态站点部署](/doc/STATIC_DEPLOY.md)
+- [nodejs部署](/doc/NODE_DEPLOY.md)
+- [前端打点协议](https://git.lcgc.work/dw/pandora/blob/master/doc/protocol/pb_fe.md)
 
 
 
