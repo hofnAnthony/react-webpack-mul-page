@@ -16,7 +16,7 @@ release:
     - yarn run clean
     - yarn run release
   only:
-      - master@guihua/solar-fe
+      - master@fe/scaffold-fe
   artifacts:
     name: "${CI_BUILD_STAGE}_${CI_BUILD_ID}"
     paths:
@@ -35,7 +35,7 @@ dev:
     - yarn run clean
     - yarn run release
   only:
-      - /^dev.*$/@guihua/solar-fe
+      - /^dev.*$/@fe/scaffold-fe
   artifacts:
     name: "dev_${CI_BUILD_STAGE}_${CI_BUILD_ID}"
     paths:
