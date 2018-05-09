@@ -11,7 +11,7 @@
 - [开发规范](/doc/GUIDELINES.md)
 - [纯静态站点部署](/doc/STATIC_DEPLOY.md)
 - [nodejs部署](/doc/NODE_DEPLOY.md)
-- [前端打点协议](https://git.lcgc.work/guihua/solar-fe/wikis/https://git.lcgc.work/dw/pandora/blob/master/doc/protocol/pb_fe.md)
+- [前端打点协议](https://git.lcgc.work/dw/pandora/blob/master/doc/protocol/pb_fe.md)
 
 
 
