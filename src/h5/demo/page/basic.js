@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { isGuiHua, guihuaVersion, isWeiXin, isWebView, isTalicai, isTimi, isJijindou } from 'lcgc_utils/ua'
+import { isGuiHua, isWeiXin, isWebView, isTalicai, isTimi, isJijindou } from 'lcgc_utils/ua'
 import { setShare, openShare } from 'lcgc_share'
 import { event, page, error } from 'lcgc_log'
 

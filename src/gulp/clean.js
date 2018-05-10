@@ -1,13 +1,17 @@
-var gulp = require('gulp')
 var del = require('del')
 
-gulp.task('clean', function (cb) {
+function gulpClean(cb) {
   del(['static'], cb)
-})
+}
 
-gulp.task('clean_dist', function (cb) {
+function gulpCleanDist(cb) {
   if (global.GULP_DEL_DIST_FILE) {
     console.log('remove dist files expect html file...')
     del(['static/dist/h5', 'static/common', 'static/dist/common'], cb)
   }
-})
+}
+
+module.exports = {
+  gulpClean,
+  gulpCleanDist
+}
