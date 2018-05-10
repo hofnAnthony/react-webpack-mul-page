@@ -6,10 +6,14 @@
 
 下面从，目录结构，React 组件写法，Ajax 几个方面进行 展开说明【后续慢慢增加】
 
-### 2.1 页面结构
+### 2.1 是否使用 react-router【活动页面中尽量不使用】
 
-活动页面尽量不用 react-router 。
-活动页面比较简单，页面不多，并且每个页面之间没有关联，因为就不需要使用 react-router
+活动页面尽量不用 react-router 。活动页面比较简单，页面不多，并且每个页面之间没有关联，因为就不需要使用 react-router
+
+目前存在的问题：
+
+1.  Growing IO 对单页面的无埋点，支持不好
+2.  WebView 如果重定向了在访问 SPA 页面，会导致  死循环退不出来，加上 isClose 参数后，会导致每个子页面都会退出来
 
 ### 2.2 目录结构和文件、文件夹命名
 
@@ -75,6 +79,7 @@ import { Toast } from 'antd-mobile'
 import queryString from 'common/js/utils/queryString.js'
 
 Axios.interceptors.response.use(resp => {
+  // 这里处理后端各种返回结构不一致问题
   if (resp.data.code === 0 || resp.data.r) {
     return resp.data.data
   } else {
@@ -123,13 +128,14 @@ export const getMoiveInfo = () => {
 ```
 
 3.  使用 svg 图片<br />
-    3.1 html 中使用
+
+html 中使用
 
 ```html
 <svg src="{svg{{h5/demo/imgs/badge_1.svg}}}" ></svg>
 ```
 
-3.2 jsx 中使用
+jsx 中使用
 
 ```js
 const svg = '<svg src="{svg{{h5/demo/imgs/badge_1.svg}}}"></svg>'

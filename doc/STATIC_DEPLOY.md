@@ -15,6 +15,9 @@
 如果有服务器权限，则使用 scp 或者 rsync 上传文件
 
 ```bash
-#scp -r -i ../id_rsa_rsync static/ username@umbriel.lcgc.net:/srv/project-name/
+# 全量上传文件
+scp -r -i ../id_rsa_rsync static/ username@umbriel.lcgc.net:/srv/project-name/
+
+# 增量上传，只上传有变动的文件
 rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ../id_rsa" --progress static username@umbriel.lcgc.net:/srv/project-name/
 ```
