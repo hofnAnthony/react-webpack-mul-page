@@ -3,13 +3,6 @@ html(data-scale="true")
   head
     block pre_js
       script(src='//guihua-static.licaigc.com/libs/log/index.min.js' async='async')
-      script(src='{{{common/js/lib/fastclick.min.js}}}')
-      script.
-        if ('addEventListener' in document) {
-          document.addEventListener('DOMContentLoaded', function() {
-            FastClick.attach(document.body);
-          }, false);
-        }
 
     block rem_js
       script(src='{{{common/js/lib/calculate_rem.js}}}')

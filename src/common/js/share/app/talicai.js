@@ -6,7 +6,7 @@
  */
 import { APP_URL } from '../../const'
 import { urlParam, UA } from '../../utils'
-const { guihuaVersion, compareVersion, isGuiHua } = UA
+const { guihuaVersion, compareVersion, isTalicai } = UA
 
 let APP = {}
 window.successFuncForApp = () => {}
@@ -19,15 +19,11 @@ const DEFAULT_SHARE_INFO = {
   desc: '身边的专属理财师',
   link: window.location.href,
   imgUrl: 'https://dn-guihua-static.qbox.me/default_share_icon.png',
-  // 回调
+  // TODO: 查看她理财回调方法是什么
   successFunc: 'successFuncForApp',
   failureFunc: 'failureFuncForApp',
   cancelFunc: 'cancelFuncForApp',
-  platforms: 'wx_session,wx_timeline',
-  // 兼容旧版
-  inviteURL: window.location.href,
-  content: '身边的专属理财师',
-  imgURL: 'https://dn-guihua-static.qbox.me/default_share_icon.png'
+  platforms: 'wx_session,wx_timeline'
 }
 
 /**
@@ -43,11 +39,7 @@ const openShare = shareInfo => {
   let shareUrl = APP_URL.SHARE
   let shareData = {
     ...DEFAULT_SHARE_INFO,
-    ...shareInfo,
-    // 兼容 Android 早期版本的分享字段
-    content: shareInfo.desc,
-    imgURL: shareInfo.imgUrl,
-    inviteURL: shareInfo.link
+    ...shareInfo
   }
   shareUrl += '?' + urlParam(shareData)
   window.location.href = shareUrl
@@ -57,21 +49,14 @@ const openShare = shareInfo => {
  * 分享图片地址
  * shareInfo
  *  imgUrl: 图片地址
- *  successFunc： 成功回调
- *  failureFunc： 失败回调
- *  cancelFunc：  取消回调
- *  platforms : 平台
  */
 const openSharePic = shareInfo => {
   let shareUrl = APP_URL.SHARE_PICURL
-  let shareData = {
-    picUrl: shareInfo.imgUrl,
-    successFunc: shareInfo.successFunc || 'successFuncForApp',
-    failureFunc: shareInfo.failureFunc || 'failureFuncForApp',
-    cancelFunc: shareInfo.cancelFunc || 'cancelFuncForApp',
-    platforms: shareInfo.platforms || ''
+  if (typeof shareInfo === 'object') {
+    shareUrl += shareInfo.imgUrl
+  } else {
+    shareUrl += shareInfo
   }
-  shareUrl += '?' + urlParam(shareData)
   window.location.href = shareUrl
 }
 
@@ -104,41 +89,35 @@ const showShareBtn = () => {
   APP.shareInfo.buttonEnable = true
 }
 
+const createShareDom = (key, val) => {
+  let id = `talicai-share-${key}`
+  if (document.getElementById(id)) {
+    document.getElementById(id).parentNode.removeChild(document.getElementById(id))
+  }
+  let input = document.createElement('input')
+  input.setAttribute('id', id)
+  input.setAttribute('type', 'hidden')
+  input.setAttribute('class', `share-${key}`)
+  input.setAttribute('value', val)
+  document.body.appendChild(input)
+}
+
 /**
- * 规划APP右上角分享按钮
+ * APP右上角分享按钮
  * shareInfo
  *    title   标题
  *    desc    描述
  *    link    分享链接
  *    imgUrl  分享的小 icon
- *    platforms=wx_session,wx_timeline,qq,weibo,link
  */
 const setShareInfo = shareInfo => {
-  if (isGuiHua()) {
-    APP.shareInfo = {
-      ...DEFAULT_SHARE_INFO,
-      ...shareInfo,
-      // 兼容旧版
-      inviteURL: shareInfo.link,
-      content: shareInfo.desc,
-      imgURL: shareInfo.imgUrl
-    }
-
-    APP.rightBtnCallback = () => {
-      openShare(APP.shareInfo)
-    }
-    if (compareVersion(guihuaVersion(), '3.5.0')) {
-      hideShareBtn()
-      setRightButton({
-        text: '分享',
-        callback: 'window.GH_APP.rightBtnCallback'
-      })
-    }
-  }
+  createShareDom('title', shareInfo.title)
+  createShareDom('link', shareInfo.link)
+  createShareDom('icon', shareInfo.imgUrl)
+  createShareDom('description', shareInfo.desc)
 }
 
 APP = {
-  shareInfo: DEFAULT_SHARE_INFO,
   setShareInfo,
   openShare,
   openSharePic,
