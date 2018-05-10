@@ -15,66 +15,53 @@ var REG_BUILD = global.REG_BUILD
 var REG_RELATIVE_BUILD = global.REG_RELATIVE_BUILD
 var IMG_FILE = global.IMG_FILE
 
-// 静态服务器 + 监听 scss/html 文件
-gulp.task(
-  'serve',
-  [
-    'webpack-js',
-    'base-js',
-    'build-html',
-    'build-pug',
-    'build-server-pug',
-    'build-img'
-  ],
-  function() {
-    // 根据环境来判断是否采用 nodejs 来启动
-    if (process.env.SOLAR_FE_NODEJS) {
-      browserSync.init({
-        proxy: 'http://127.0.0.1:29999',
-        port: 10000,
-        open: true,
-        notify: false,
-        logLevel: 'silent'
-      })
-    } else {
-      browserSync.init({
-        port: 10000,
-        server: 'static',
-        open: true,
-        notify: false,
-        logLevel: 'silent'
-      })
-    }
+function gulpServe() {
+  // 根据环境来判断是否采用 nodejs 来启动
+  if (process.env.SOLAR_FE_NODEJS) {
+    browserSync.init({
+      proxy: 'http://127.0.0.1:29999',
+      port: 10000,
+      open: true,
+      notify: false,
+      logLevel: 'silent'
+    })
+  } else {
+    browserSync.init({
+      port: 10000,
+      server: 'static',
+      open: true,
+      notify: false,
+      logLevel: 'silent'
+    })
   }
-)
+}
 
-// 把第三方依赖包复制到构建后的文件夹里面
-gulp.task('base-dist-js', function() {
+function gulpBaseDistJs() {
   return gulp
     .src('src/common/js/dist/*.js')
     .pipe(include())
     .pipe(gulp.dest('static/build/common/js/dist'))
-})
+}
 
-// 把不需要打包的依赖包，复制到构建后的文件夹里面
-gulp.task('base-js', ['base-dist-js'], function() {
+
+function gulpBaseJs() {
   return gulp
     .src('src/common/js/lib/*.js')
     .pipe(include())
     .pipe(gulp.dest('static/build/common/js/lib'))
-})
+}
 
-// 构建图片
-gulp.task('build-img', function() {
+
+function gulpBuildImg() {
   return gulp
     .src(IMG_FILE)
     .pipe(gulpif(!global.is_production, cache()))
     .pipe(gulp.dest('static/build'))
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-// 构建pug
-gulp.task('build-pug', function() {
+
+function gulpBuildPug() {
   return gulp
     .src(['src/h5/**/*.pug'])
     .pipe(
@@ -96,9 +83,10 @@ gulp.task('build-pug', function() {
       )
     )
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-gulp.task('build-server-pug', ['build-common-pug'], function() {
+
+function gulpBuildServerPug() {
   return gulp
     .src(['src/h5/**/*.pug'])
     .pipe(gulpif(!global.is_production, cache()))
@@ -112,9 +100,10 @@ gulp.task('build-server-pug', ['build-common-pug'], function() {
       )
     )
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-gulp.task('build-common-pug', function() {
+
+function gulpBuildCommonPug() {
   return gulp
     .src(['src/common/**/*.pug'])
     .pipe(gulpif(!global.is_production, cache()))
@@ -128,10 +117,10 @@ gulp.task('build-common-pug', function() {
       )
     )
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-// 构建html
-gulp.task('build-html', function() {
+
+function gulpBuildHtml() {
   return gulp
     .src(['src/h5/**/*.html'])
     .pipe(gulpif(!global.is_production, cache()))
@@ -145,10 +134,10 @@ gulp.task('build-html', function() {
       )
     )
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-// 使用webpack构建js
-gulp.task('webpack-js', function() {
+
+function gulpWebpackJs() {
   return gulp
     .src('static/build/webpack/**/*.js')
     .pipe(gulpif(!global.is_production, cache()))
@@ -159,19 +148,19 @@ gulp.task('webpack-js', function() {
     .pipe(gulpif(!global.is_production, replace(REGEX, REG_BUILD)))
     .pipe(gulp.dest('static/build'))
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-// js中引用第三方组件库，组件库里面的资源，打包出来
-gulp.task('build-npm-file', function() {
+
+function gulpBuildNpmFile() {
   return gulp
     .src('static/build/webpack/**/*.+(png|gif|jpg|eot|woff|ttf|otf|svg|ico)')
     .pipe(gulpif(!global.is_production, cache()))
     .pipe(gulp.dest('static'))
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
 
-// webpack构建css时，刷新页面
-gulp.task('webpack-css', function() {
+
+function gulpWebpackCss() {
   return gulp
     .src('static/build/webpack/**/*.css')
     .pipe(gulpif(!global.is_production, cache()))
@@ -181,4 +170,18 @@ gulp.task('webpack-css', function() {
     .pipe(gulpif(!global.is_production, replace(REGEX, REG_BUILD)))
     .pipe(gulp.dest('static/build'))
     .pipe(gulpif(!global.is_production, reload({ stream: true })))
-})
+}
+
+module.exports = {
+  gulpServe,
+  gulpBaseJs,
+  gulpBaseDistJs,
+  gulpBuildImg,
+  gulpBuildPug,
+  gulpBuildServerPug,
+  gulpBuildCommonPug,
+  gulpBuildHtml,
+  gulpWebpackJs,
+  gulpWebpackCss,
+  gulpBuildNpmFile
+}

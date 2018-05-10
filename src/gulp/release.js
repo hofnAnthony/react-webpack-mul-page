@@ -35,27 +35,13 @@ function deleteFolder(path) {
   }
 }
 
-gulp.task(
-  'release-js',
-  [
-    'webpack-js',
-    'webpack-css',
-    'build-npm-file',
-    'base-js',
-    'build-img',
-    'build-html',
-    'build-pug',
-    'build-server-pug',
-    'build-common-pug'
-  ],
-  function() {
-    return gulp
-      .src(['static/build/**/*.js', '!static/build/**/*.min.js'])
-      .pipe(gulp.dest('static/build'))
-  }
-)
+function gulpReleaseJs() {
+  return gulp
+    .src(['static/build/**/*.js', '!static/build/**/*.min.js'])
+    .pipe(gulp.dest('static/build'))
+}
 
-gulp.task('release-rev', ['release-js'], function() {
+function gulpReleaseRev() {
   return gulp
     .src(
       [
@@ -71,29 +57,29 @@ gulp.task('release-rev', ['release-js'], function() {
     .pipe(gulp.dest('static/dist'))
     .pipe(rev.manifest())
     .pipe(gulp.dest('static'))
-})
+}
 
-gulp.task('css-js-replace', ['release-rev'], function() {
+function gulpCssJsReplace() {
   return gulp
     .src(['static/dist/**/*.css', 'static/dist/**/*.js'])
     .pipe(replace(global.REGEX_RELATIVE, relativeReplaceFunc))
     .pipe(replace(global.REGEX, replaceFunc))
     .pipe(gulp.dest('static/dist'))
-})
+}
 
-gulp.task('html-replace', ['css-js-replace'], function() {
+function gulpHtmlReplace() {
   return gulp
     .src('static/build/**/*.+(html|jsp|pug)')
     .pipe(replace(global.REGEX, replaceFunc))
     .pipe(gulp.dest('static'))
-})
+}
 
-gulp.task('set-release', function() {
+function gulpSetRelease() {
   global.is_production = true
   process.env.NODE_ENV = 'production'
-})
+}
 
-gulp.task('release', ['set-release', 'html-replace'], function(cb) {
+function gulpRelease(cb) {
   del(['static/build'], cb)
   deleteFolder('static/dist/webpack')
   // 上传七牛
@@ -111,4 +97,13 @@ gulp.task('release', ['set-release', 'html-replace'], function(cb) {
   } else {
     return gulp.src('')
   }
-})
+}
+
+module.exports = {
+  gulpReleaseJs,
+  gulpReleaseRev,
+  gulpCssJsReplace,
+  gulpHtmlReplace,
+  gulpSetRelease,
+  gulpRelease
+}

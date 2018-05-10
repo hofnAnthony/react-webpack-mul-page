@@ -1,27 +1,46 @@
-var reqdir = require('require-dir')
+var gulp = require('gulp')
+var configName = process.argv[2]
+var config = require('./gulpconfig.json')
+var basePath = './src/gulp/'
+require(basePath + 'const') // 全局常量
+var baseList = config.base.task
+var taskList = config[configName].task
+taskList = [...taskList, ...baseList]
 
-global.REGEX = /\{\{\{(\S*?)\}\}\}/g
-global.REGEX_RELATIVE = /\{\{\#\{(\S*?)\}\}\}/g
-global.REG_BUILD = '/build/$1'
-global.REG_RELATIVE_BUILD = '/build/$1'
-global.MANIFEST = __dirname + '/static/rev-manifest.json'
+var baseFunc = require(basePath + 'base.js')
+var taskPath
+if (config[configName].path) {
+  taskPath = basePath + config[configName].path
+} else {
+  taskPath = basePath + configName + '.js'
+}
 
-//合并部署后，可能需要修改路径,使用全路径的方式，否则图片和字体文件找不到
-global.DIST_DIR = JSON.parse(process.env.SOLAR_ASSETS_QINIU_URL || '"/dist/"')
-global.DIST_DIR_RELATIVE = '/dist/'
-global.AK = JSON.parse(process.env.SOLAR_QINIU_AK || null)
-global.SK = JSON.parse(process.env.SOLAR_QINIU_SK || null)
+var taskFunc = require(taskPath)
+var taskFuncObj = Object.assign(baseFunc, taskFunc)
 
-// 静态资源已上传到七牛，因此删除一些无用的静态资源
-global.GULP_DEL_DIST_FILE = JSON.parse(process.env.GULP_DEL_DIST_FILE || false)
+function transFuncName(taskName) {
+  var reg = /[-_](\w)/g
+  taskName = taskName.charAt(0).toUpperCase() + taskName.slice(1)
+  return 'gulp' + taskName.replace(reg, function(all, letter) {
+    return letter.toUpperCase()
+  })
+}
 
-global.IMG_FILE = [
-  'src/**/*.+(png|gif|jpg|eot|woff|ttf|otf|svg|ico)',
-  '!src/old/**/*.+(png|gif|jpg|eot|woff|ttf|otf|svg|ico)',
-  '!src/common/**/*.+(png|gif|jpg|eot|woff|ttf|otf|svg|ico)'
-]
-global.NPM_FILE = 'static/webpack/**/*.+(png|gif|jpg|eot|woff|ttf|otf|svg|ico)'
-global.AUDIO_FILE = ['src/**/*.+(ogg|mp3|wav)']
+function batchTask(list) {
+  var task
+  var func
+  for (var i = 0; i < list.length; i++) {
+    task = list[i]
+    task.deps = task.deps || []
 
+    if (task.funcName !== undefined) {
+      func = taskFuncObj[task.funcName]
+    } else {
+      func = taskFuncObj[transFuncName(task)]
+    }
 
-reqdir('./src/gulp/')
+    gulp.task(task.name, task.deps, func)
+  }
+}
+
+batchTask(taskList)

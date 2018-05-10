@@ -6,16 +6,15 @@ var path = require('path')
 var objectAssign = require('object-assign')
 
 // 匹配 SVG 文件中的 SVG 标签，捕获 SVG 属性内容 和 SVG Children
-var SVG_REG = /[\s\S]*?<svg([\s\S]*?)>([\s\S]*?)<\/svg>/m
+var SVG_REG = global.SVG_REG
 // 匹配 viewBox 信息
-var VIEWBOX_REG = /viewBox=['"]([\s\S]*?)['"]{1}?/m
+var VIEWBOX_REG = global.SVG_VIEWBOX_REG
 // 匹配 SVG 标签宽度
-var WIDTH_REG = /width=['"]([\s\S]*?)['"]{1}?/m
+var WIDTH_REG = global.SVG_WIDTH_REG
 // 匹配 SVG 标签高度
-var HEIGHT_REG = /height=['"]([\s\S]*?)['"]{1}?/m
-
+var HEIGHT_REG = global.SVG_HEIGHT_REG
 // 匹配 class 内容
-var CLASS_REG = /\sclass=['"]([\s\S]*?)['"]{1}?/m
+var CLASS_REG = global.SVG_CLASS_REG
 
 var defaultOptions = {
   // 默认类名
