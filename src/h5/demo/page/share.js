@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import BROWSER, { isGuiHua, guihuaVersion, isWeiXin } from 'lcgc_utils/ua'
 import { setShare, openShare, openSharePic } from 'lcgc_share'
-import { Toast } from 'antd-mobile'
-
+import { Toast, Modal, List, Button } from 'antd-mobile'
 // 案例1：判断浏览器UserAgent信息
 console.log(BROWSER)
 console.log('guihua:', isGuiHua())
@@ -37,20 +36,35 @@ class BasicDemo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      time: 0
+      time: 0,
+      modal2: true
     }
+  }
+
+  onClose = name => {
+    this.setState({ [name]: false })
   }
 
   render() {
     return (
       <div>
+        <Modal popup visible={this.state.modal2} onClose={this.onClose.bind(this, 'modal2')} animationType="slide-up">
+          <List renderHeader={() => <div>委托买入</div>} className="popup-list">
+            {['股票名称', '股票代码', '买入价格'].map((i, index) => <List.Item key={index}>{i}</List.Item>)}
+            <List.Item>
+              <Button type="primary" onClick={this.onClose.bind(this, 'modal2')}>
+                买入
+              </Button>
+            </List.Item>
+          </List>
+        </Modal>
         <div
           className="u-btn"
           onTouchStart={() => {
             startTime = new Date()
           }}
           onClick={() => {
-            this.setState({ time: new Date() - startTime })
+            this.setState({ time: new Date() - startTime, modal2: true })
           }}
         >
           点击延迟：{this.state.time}ms
@@ -79,7 +93,12 @@ class BasicDemo extends Component {
         >
           按钮分享文案：222222
         </div>
-
+        <input
+          style={{ display: 'block', height: '40px', lineHeight: '40px', width: '100%' }}
+          type="number"
+          name=""
+          id=""
+        />
         <hr />
         <div
           className="u-btn"
