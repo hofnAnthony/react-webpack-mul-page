@@ -30,11 +30,31 @@ let shareInfo = {
 // 案例2：设置分享信息
 setShare(shareInfo)
 
+let startTime = 0
+
 // 案例3：渲染组件
 class BasicDemo extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      time: 0
+    }
+  }
+
   render() {
     return (
       <div>
+        <div
+          className="u-btn"
+          onTouchStart={() => {
+            startTime = new Date()
+          }}
+          onClick={() => {
+            this.setState({ time: new Date() - startTime })
+          }}
+        >
+          点击延迟：{this.state.time}ms
+        </div>
         <div
           className="u-btn"
           onClick={() => {
