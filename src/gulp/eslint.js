@@ -1,7 +1,7 @@
 var gulp = require('gulp')
 var eslint = require('gulp-eslint')
 
-gulp.task('eslint', function () {
+function gulpEslint() {
   return gulp.src(['src/**/*.js',
     'src/**/*.jsx',
     '!node_modules/**',
@@ -9,4 +9,8 @@ gulp.task('eslint', function () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
-})
+}
+
+module.exports = {
+  gulpEslint
+}
