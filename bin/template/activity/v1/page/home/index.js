@@ -2,17 +2,14 @@ import './_index.less'
 import React, { Component } from 'react'
 import { setShare } from 'lcgc_share'
 
-setShare(
-  {
-    title: '分享的标题测试',
-    desc: '分享的描述测试',
-    link: `${window.location.href}`,
-    imgUrl: 'https://guihua-static.licaigc.com/dazhaxie.png'
-  },
-  true
-)
+setShare({
+  title: '分享的标题测试',
+  desc: '分享的描述测试',
+  link: `${window.location.href}`,
+  imgUrl: 'https://guihua-static.licaigc.com/dazhaxie.png'
+})
 
-class ProductList extends Component {
+class Demo extends Component {
   render() {
     return (
       <div>
@@ -22,4 +19,4 @@ class ProductList extends Component {
   }
 }
 
-ReactDOM.render(<ProductList />, document.getElementById('container'))
+ReactDOM.render(<Demo />, document.getElementById('container'))

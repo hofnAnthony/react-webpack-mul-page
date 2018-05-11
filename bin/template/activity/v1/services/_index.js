@@ -3,6 +3,7 @@ import { Toast } from 'antd-mobile'
 
 const axiosInstance = Axios.create()
 
+// Ajax请求返回拦截,统一处理错误信息
 axiosInstance.interceptors.response.use(resp => {
   if (resp.data.code === 0 || resp.data.r) {
     return resp.data.data
@@ -28,7 +29,9 @@ export const getQuestions = () => {
 
 /**
  * 提交问题答案
+ * Axios 默认传参是 JSON格式
+ * 如果是Form格式的，需要把数据拼成 a=1&b=2&c=3 这样的形式
  */
 export const postAnswers = param => {
-  return axiosInstance.post(URLS.postAnswers, JSON.stringify(param))
+  return axiosInstance.post(URLS.postAnswers, param)
 }
