@@ -1,0 +1,166 @@
+/* 
+ 注意，这里如果用px，否则会被 px2rem 自动转成 rem
+ px2rem 设置为两倍率的html font-size 
+ 因为 antd-mobile 的高清解决方案是是设置页面缩放比例为0.5， 而该项目为了兼容其他组件库，和设计稿。 还是保持 缩放比例为1
+ 解决方案：
+  1. 可以直接使用rem单位
+  2. 可以使用 PX ，大写的 px2rem不会处理
+*/
+
+@fontFamily: 'PingFangSC-Regular';
+.am-input-label,
+.am-input-control input,
+.am-list-content,
+.am-list-extra {
+    align-items: center;
+    color: #6A6A6A !important;
+    font-size: 1.4rem !important;
+    font-family: @fontFamily !important;
+}
+
+.am-list-body div:not(:last-child) .am-list-line {
+    border-color: #EBEBEB;
+}
+
+.am-list-extra {
+    flex: 1;
+    text-align: left !important;
+}
+
+.fake-input-placeholder {
+    font-size: 1.4rem !important;
+}
+
+.am-list-brief {
+    margin-top: 0 !important;
+    color: #B6B6B6 !important;
+    font-size: 1rem !important;
+}
+
+.am-list-header {
+    background: #FFF;
+    color: #CCCCCC;
+    font-size: 1.2rem;
+    font-family: @fontFamily;
+}
+
+.am-list {
+    margin-bottom: 0.8rem !important;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .am-list-body,
+    .am-list-item.am-input-item:after {
+        // border-top: 0 !important;
+        border-color: #EBEBEB !important;
+    }
+    .am-list-item .am-input-extra {
+        color: #6A6A6A;
+        font-size: 1.4rem;
+    }
+}
+
+.lcgc-formitem__radio {
+    margin-right: 1.5rem;
+    color: #C6C6C6;
+    line-height: 2;
+    &:last-child {
+        margin-right: 0;
+    }
+    .am-radio {
+        margin-right: 0.7rem;
+        padding: 0.9rem;
+        border: 1PX solid #EBEBEB;
+        border-radius: 50%;
+        font-size: 0.8rem;
+    }
+    .am-radio-inner:after {
+        top: -0.7rem;
+        right: 0.56rem;
+        width: 0.5rem;
+        height: 1rem;
+        border-width: 0 1PX 1PX 0;
+        border-color: #6192B3 !important;
+    }
+}
+
+.lcgc-formitem__radio-checked {
+    color: #6A6A6A;
+}
+
+.lcgc-formitem__button {
+    .am-list-line {
+        .am-list-content {
+            justify-content: center;
+            color: #6192B3 !important;
+            &:active {
+                opacity: 0.9;
+            }
+        }
+    }
+    .am-list-content,
+    .am-list-extra {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.formitem-question__answer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem 0 0;
+}
+
+.formitem__checkgroup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.am-modal-body {
+    .formitem__checkgroup {
+        justify-content: center;
+    }
+}
+
+.lcgc-form__header {
+    .am-list-item {
+        padding: 0;
+    }
+    .am-list-content {
+        padding-bottom: 0 !important;
+    }
+    .am-list-brief {
+        margin: 0 !important;
+    }
+}
+
+.form-error {
+    background: #FFF;
+    color: red;
+    text-align: right;
+}
+
+.picker__placeholder {
+    width: 100%;
+    color: #C6C6C6;
+}
+
+.lcgc-select {
+    .am-list-brief {
+        margin-top: 0 !important;
+    }
+}
+
+.form__input {
+    color: #6A6A6A !important;
+    display: block;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    height: 3rem;
+    -webkit-appearance: none;
+    &::placeholder {
+        font-size: 1.4rem;
+        color: #C6C6C6;
+    }
+}
