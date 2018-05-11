@@ -1,7 +1,6 @@
 import Axios from 'axios'
 import { Toast } from 'antd-mobile'
 
-
 const axiosInstance = Axios.create()
 
 axiosInstance.interceptors.response.use(resp => {
@@ -16,8 +15,8 @@ axiosInstance.interceptors.response.use(resp => {
 })
 
 let URLS = {
-  getQuestions: '/activities/2017/questions',         // 获取题目信息
-  postAnswers: '/activities/2017/slide',              // 提交问题答案
+  getQuestions: '/activities/2017/questions', // 获取题目信息
+  postAnswers: '/activities/2017/slide' // 提交问题答案
 }
 
 /**
@@ -30,6 +29,6 @@ export const getQuestions = () => {
 /**
  * 提交问题答案
  */
-export const postAnswers = (param) => {
+export const postAnswers = param => {
   return axiosInstance.post(URLS.postAnswers, JSON.stringify(param))
 }
