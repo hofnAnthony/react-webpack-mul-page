@@ -87,7 +87,7 @@ gulp.task('html-replace', ['css-js-replace'], function() {
 })
 
 gulp.task('release', ['set-release', 'html-replace'], function(cb) {
-  del(['static/build', 'static/dist/webpack'], cb)
+  del(['static/build'], cb)
   // 上传七牛
   if (global.AK && global.SK) {
     return gulp.src('static/dist/**').pipe(
