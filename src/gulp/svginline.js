@@ -6,15 +6,16 @@ var path = require('path')
 var objectAssign = require('object-assign')
 
 // 匹配 SVG 文件中的 SVG 标签，捕获 SVG 属性内容 和 SVG Children
-var SVG_REG = global.SVG_REG
+var SVG_REG = /[\s\S]*?<svg([\s\S]*?)>([\s\S]*?)<\/svg>/m
 // 匹配 viewBox 信息
-var VIEWBOX_REG = global.SVG_VIEWBOX_REG
+var VIEWBOX_REG = /viewBox=['"]([\s\S]*?)['"]{1}?/m
 // 匹配 SVG 标签宽度
-var WIDTH_REG = global.SVG_WIDTH_REG
+var WIDTH_REG = /width=['"]([\s\S]*?)['"]{1}?/m
 // 匹配 SVG 标签高度
-var HEIGHT_REG = global.SVG_HEIGHT_REG
+var HEIGHT_REG = /height=['"]([\s\S]*?)['"]{1}?/m
+
 // 匹配 class 内容
-var CLASS_REG = global.SVG_CLASS_REG
+var CLASS_REG = /\sclass=['"]([\s\S]*?)['"]{1}?/m
 
 var defaultOptions = {
   // 默认类名
@@ -25,10 +26,10 @@ var defaultOptions = {
   basePath: './'
 }
 
-module.exports = function (options) {
+module.exports = function(options) {
   var opt = objectAssign({}, defaultOptions, options)
 
-  return through.obj(function (file, encoding, callback) {
+  return through.obj(function(file, encoding, callback) {
     if (file.isNull()) {
       this.push(file)
       return callback()
@@ -42,8 +43,7 @@ module.exports = function (options) {
     if (file.isBuffer()) {
       var output = String(file.contents)
 
-      output = output.replace(opt.regex, function (match, p1, p2) {
-
+      output = output.replace(opt.regex, function(match, p1, p2) {
         var svgPath = p1
         svgPath = path.join(opt.basePath, svgPath)
 
@@ -68,7 +68,7 @@ module.exports = function (options) {
 
         // 从 SVG 文件内容中获取 SVG 内容「不包含 SVG 节点」和 属性内容
         var svgAttr = ''
-        var svgInline = svgString.replace(SVG_REG, function (match, p1, p2) {
+        var svgInline = svgString.replace(SVG_REG, function(match, p1, p2) {
           svgAttr = p1
           return p2
         })
@@ -91,10 +91,10 @@ module.exports = function (options) {
 
 // 给生成的 HTML 中的 SVG 标签附加默认 Class
 function addClass(tag, className) {
-  var reg = RegExp('[\s\'"]' + className + '[\s\'"]')
+  var reg = RegExp('[s\'"]' + className + '[s\'"]')
 
   if (tag.match(CLASS_REG)) {
-    tag = tag.replace(CLASS_REG, function (matchStr, p1) {
+    tag = tag.replace(CLASS_REG, function(matchStr, p1) {
       if (matchStr.match(reg)) {
         return matchStr
       }
@@ -105,21 +105,18 @@ function addClass(tag, className) {
   }
 
   return tag
-
 }
 
 // 将原 SVG 文件内的 SVG 标签部分属性拷贝给 HTML 中的 SVG 标签
 function addAttrs(srcAttr, targetTag, attrRegs) {
-
   var matchStr = ''
 
-  attrRegs.forEach(function (reg, index) {
+  attrRegs.forEach(function(reg, index) {
     matchStr = srcAttr.match(reg)
 
     if (matchStr) {
       targetTag += ' ' + matchStr[0]
     }
-
   })
 
   return targetTag
@@ -141,8 +138,8 @@ function assignWH(attrStr) {
   var height = viewBoxStr.match(FLOAT_REG)[3]
 
   if (hasWidth) {
-    newAttrStr = attrStr.replace(WIDTH_REG, function (str, p1) {
-      replaceStr = str.replace(FLOAT_REG, function (str) {
+    newAttrStr = attrStr.replace(WIDTH_REG, function(str, p1) {
+      replaceStr = str.replace(FLOAT_REG, function(str) {
         return Math.round(str)
       })
 
@@ -153,8 +150,8 @@ function assignWH(attrStr) {
   }
 
   if (hasHeight) {
-    newAttrStr = attrStr.replace(HEIGHT_REG, function (str, p1) {
-      replaceStr = str.replace(FLOAT_REG, function (str) {
+    newAttrStr = attrStr.replace(HEIGHT_REG, function(str, p1) {
+      replaceStr = str.replace(FLOAT_REG, function(str) {
         return Math.round(str)
       })
 
@@ -166,7 +163,6 @@ function assignWH(attrStr) {
 
   return attrStr
 }
-
 
 // 将 SVG 文件内容转换成一行
 function toOneline(str) {
