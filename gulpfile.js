@@ -14,11 +14,11 @@ global.MANIFEST = __dirname + '/static/rev-manifest.json'
 
 // 部署后的文件路径
 global.DIST_DIR_RELATIVE = '/dist/'
-global.DIST_DIR = JSON.parse(process.env.SOLAR_ASSETS_QINIU_URL || '"/dist/"')
+global.DIST_DIR = JSON.parse(process.env.QINIU_URL || '"/dist/"')
 
 // 七牛的KEY
-global.AK = JSON.parse(process.env.SOLAR_QINIU_AK || null)
-global.SK = JSON.parse(process.env.SOLAR_QINIU_SK || null)
+global.AK = JSON.parse(process.env.QINIU_AK || null)
+global.SK = JSON.parse(process.env.QINIU_SK || null)
 
 // 图片文件路径
 global.IMG_FILE = [
