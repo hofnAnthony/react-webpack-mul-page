@@ -8,6 +8,7 @@
 
 * [快速上手](/doc/GET_START.md)
 * [开发规范](/doc/GUIDELINES.md)
+* [项目常用方法使用指南](/doc/COMMON_FN.md)
 * [纯静态站点部署](/doc/STATIC_DEPLOY.md)
 * [nodejs 部署](/doc/NODE_DEPLOY.md)
 * [前端打点协议](https://git.lcgc.work/dw/pandora/blob/master/doc/protocol/pb_fe.md)
