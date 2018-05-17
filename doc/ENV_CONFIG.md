@@ -10,7 +10,8 @@
 
 ```
 GULP_DEL_DIST_FILE  => true
-QINIU_URL => "'xxxxxxx'"
-QINIU_AK => "'xxxxxxx'"
-QINIU_SK => "'xxxxxxx'"
+QINIU_URL => xxxxxxx
+QINIU_AK => xxxxxxx
+QINIU_SK => xxxxxxx
+QINIU_BUCKET => xxxxx
 ```

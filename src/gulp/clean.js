@@ -12,6 +12,6 @@ gulp.task('clean', function(cb) {
 gulp.task('clean_dist', function(cb) {
   if (global.GULP_DEL_DIST_FILE) {
     console.log('remove dist files expect html file...')
-    del(['static/dist/h5', 'static/common', 'static/dist/common', 'static/dist/webpack'], cb)
+    del(['static/dist/h5', 'static/dist/common'], cb)
   }
 })
