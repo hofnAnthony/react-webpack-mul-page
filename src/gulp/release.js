@@ -25,6 +25,22 @@ function relativeReplaceFunc(match, p1) {
   return global.DIST_DIR_RELATIVE + manifest[p1]
 }
 
+function deleteFolder(path) {
+  var files = []
+  if (fs.existsSync(path)) {
+    files = fs.readdirSync(path)
+    files.forEach(function (file, index) {
+      var curPath = path + '/' + file
+      if (fs.statSync(curPath).isDirectory()) { // recurse
+        deleteFolder(curPath)
+      } else { // delete file
+        fs.unlinkSync(curPath)
+      }
+    })
+    fs.rmdirSync(path)
+  }
+}
+
 // 设置为prod环境
 gulp.task('set-release', function() {
   global.is_production = true
@@ -88,14 +104,15 @@ gulp.task('html-replace', ['css-js-replace'], function() {
 
 gulp.task('release', ['set-release', 'html-replace'], function(cb) {
   del(['static/build'], cb)
+  deleteFolder('static/dist/webpack')
   // 上传七牛
-  if (global.AK && global.SK) {
+  if (global.AK && global.SK && global.BUCKET) {
     return gulp.src('static/dist/**').pipe(
       qiniu(
         {
           accessKey: global.AK,
           secretKey: global.SK,
-          bucket: 'guihua-assets'
+          bucket: global.BUCKET
         },
         { dir: '/' }
       )
